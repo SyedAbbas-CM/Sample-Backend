@@ -1,0 +1,1 @@
+npx nodemon --exec "node --require ts-node/register --inspect ../../src/modules/payment/thirdparty/stripe/samples/stripe-generated-webhook-handler.ts"

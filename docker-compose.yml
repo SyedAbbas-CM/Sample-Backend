@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: ./dockerfiles/nestjs.dockerfile
+  #   volumes:
+  #     - /app/node_modules
+  #   ports:
+  #     - 3000:3000
+  #     - 9229:9229
+  #   depends_on:
+  #     - mongo_db
+  #     - redis
+  #     - mqttserver
+  #   links:
+  #     - mongo_db
+  mongo_db:
+    container_name: mongo_db
+    image: mongo
+    restart: always
+    volumes:
+      - ./data:/data/db
+  mqttserver:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./conf/dockerContainers/mosquitto:/mosquitto/config
+      - /mosquitto/config
+      - /mosquitto/data
+      - /mosquitto/log
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
